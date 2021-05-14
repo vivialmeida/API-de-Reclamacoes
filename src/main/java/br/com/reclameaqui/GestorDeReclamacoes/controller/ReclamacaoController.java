@@ -42,10 +42,10 @@ public class ReclamacaoController {
               @ApiResponse(code = 400, message = "Parâmetros incorretos"),
               @ApiResponse(code = 500, message = "Erro interno"),
       })
-      @GetMapping("/{id}")
-      public ResponseEntity<Iterable<Reclamacao>> recuperarReclamacaoPorData(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+      @GetMapping("/data")
+      public ResponseEntity<Iterable<Reclamacao>> recuperarReclamacaoPorData(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
                                                                              @RequestParam("dataInicio") LocalDate dataInicio,
-                                                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
                                                                              @RequestParam(value = "dataFim", required = false) LocalDate dataFim) {
             return ResponseEntity.ok(reclamacaoService.recuperarReclamacaoPorData(dataInicio, dataFim));
       }
