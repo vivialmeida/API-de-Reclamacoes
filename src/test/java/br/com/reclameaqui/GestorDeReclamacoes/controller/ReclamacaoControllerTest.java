@@ -1,15 +1,17 @@
 package br.com.reclameaqui.GestorDeReclamacoes.controller;
 
 import br.com.reclameaqui.GestorDeReclamacoes.model.Reclamacao;
-import br.com.reclameaqui.GestorDeReclamacoes.service.ReclamacaoService;
+import br.com.reclameaqui.GestorDeReclamacoes.service.interfaces.ReclamacaoService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class ReclamacaoControllerTest {
       }
 
       @Test
-      public void testRecuperarReclamacoes() throws Exception {
+      public void testRecuperarReclamacoes(){
             when(reclamacaoService.recuperarReclamacoes()).thenReturn(Arrays.<Reclamacao>asList(new Reclamacao()));
             ResponseEntity<List<Reclamacao>> result = reclamacaoController.recuperarReclamacoes();
             verify(reclamacaoService).recuperarReclamacoes();
@@ -35,33 +37,34 @@ public class ReclamacaoControllerTest {
       }
 
       @Test
-      public void testRecuperarReclamacaoPorId() throws Exception {
-            when(reclamacaoService.recuperarReclamacao(anyLong())).thenReturn(new Reclamacao());
+      public void testRecuperarReclamacaoPorId(){
+            Iterable<Reclamacao> reclamacaos = new ArrayList<>();
+            when(reclamacaoService.recuperarReclamacaoPorId(anyString())).thenReturn(reclamacaos);
 
-            ResponseEntity<Reclamacao> result = reclamacaoController.recuperarReclamacaoPorId(Long.valueOf(1));
-            verify(reclamacaoService, times(1)).recuperarReclamacao(anyLong());
-            Assert.assertEquals(ResponseEntity.ok(new Reclamacao()), result);
+            ResponseEntity<Iterable<Reclamacao>> result = reclamacaoController.recuperarReclamacaoPorId("1");
+            verify(reclamacaoService, times(1)).recuperarReclamacaoPorId(anyString());
+            Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
       }
 
       @Test
-      public void testAdicionarReclamacao() throws Exception {
-            ResponseEntity.BodyBuilder result = reclamacaoController.adicionarReclamacao(new Reclamacao());
+      public void testAdicionarReclamacao() {
+            ResponseEntity result = reclamacaoController.adicionarReclamacao(new Reclamacao());
             verify(reclamacaoService, times(1)).inserirReclamacao(any());
       }
 
       @Test
-      public void testAtualizarReclamacao() throws Exception {
-            when(reclamacaoService.atualizarReclamacao(anyLong(), any())).thenReturn(new Reclamacao());
+      public void testAtualizarReclamacao(){
+            when(reclamacaoService.atualizarReclamacao(any())).thenReturn(new Reclamacao());
 
-            ResponseEntity<Reclamacao> result = reclamacaoController.atualizarReclamacao(Long.valueOf(1), new Reclamacao());
-            verify(reclamacaoService, times(1)).atualizarReclamacao(anyLong(), any());
+            ResponseEntity<Reclamacao> result = reclamacaoController.atualizarReclamacao(new Reclamacao());
+            verify(reclamacaoService, times(1)).atualizarReclamacao( any());
             Assert.assertEquals(ResponseEntity.ok(new Reclamacao()), result);
       }
 
       @Test
-      public void testExcluirReclamacao() throws Exception {
-            ResponseEntity<Void> result = reclamacaoController.excluirReclamacao(Long.valueOf(1));
-            verify(reclamacaoService, times(1)).excluirReclamacao(anyLong());
+      public void testExcluirReclamacao(){
+            ResponseEntity<Void> result = reclamacaoController.excluirReclamacao("1");
+            verify(reclamacaoService, times(1)).excluirReclamacao(anyString());
             Assert.assertEquals(ResponseEntity.noContent().build(), result);
       }
 }

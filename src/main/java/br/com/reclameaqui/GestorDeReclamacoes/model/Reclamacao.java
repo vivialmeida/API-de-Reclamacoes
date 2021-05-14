@@ -3,6 +3,7 @@ package br.com.reclameaqui.GestorDeReclamacoes.model;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -12,13 +13,12 @@ import java.time.LocalDateTime;
 @Document(collection = "reclamacao")
 public class Reclamacao {
 
-  @Id
-  private Long id;
+  @Id @GeneratedValue
+  private String id;
   @NotBlank @Size(min = 2)
   private String titulo;
   @NotBlank @Size(min = 5)
   private String descricao;
-  @NotBlank
   private Localidade localidade;
   private Empresa empresa;
   private LocalDateTime datahora;

@@ -2,9 +2,12 @@ package br.com.reclameaqui.GestorDeReclamacoes.service;
 
 import br.com.reclameaqui.GestorDeReclamacoes.model.Reclamacao;
 import br.com.reclameaqui.GestorDeReclamacoes.respository.ReclamacaoRepository;
+import br.com.reclameaqui.GestorDeReclamacoes.service.interfaces.ReclamacaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -16,28 +19,43 @@ public class ReclamacaoServiceImpl implements ReclamacaoService {
       @Override
       public List<Reclamacao> recuperarReclamacoes() {
             List<Reclamacao> reclamacaos = reclamacaoRepository.findAll();
-            System.out.println(reclamacaos);
-            return reclamacaos;
+             return reclamacaos;
 
       }
 
       @Override
-      public Reclamacao recuperarReclamacao(Long idReclamcao) {
+      public Iterable<Reclamacao> recuperarReclamacaoPorId(String idReclamacao) {
+            return  reclamacaoRepository.findAllById(Collections.singleton(idReclamacao));
+      }
+
+      @Override
+      public Iterable<Reclamacao> recuperarReclamacaoPorData(LocalDate dataInicio, LocalDate dataFim) {
+            return null;
+      }
+
+      @Override
+      public List<Reclamacao> recuperarReclamacaoPorEmpresa(String nomeEmpresa, String cnpjEmpresa) {
+            return null;
+      }
+
+      @Override
+      public List<Reclamacao> recuperarReclamacaoPorLocalidade(String pais, String estado, String cidade) {
             return null;
       }
 
       @Override
       public void inserirReclamacao(Reclamacao reclamacao) {
+            reclamacaoRepository.insert(reclamacao);
 
       }
 
       @Override
-      public Reclamacao atualizarReclamacao(Long idReclamacao, Reclamacao reclamacao) {
-            return null;
+      public Reclamacao atualizarReclamacao(Reclamacao reclamacao) {
+          return reclamacaoRepository.save(reclamacao);
       }
 
       @Override
-      public void excluirReclamacao(Long idReclamacao) {
-
+      public void excluirReclamacao(String idReclamacao) {
+            reclamacaoRepository.deleteById(idReclamacao);
       }
 }
