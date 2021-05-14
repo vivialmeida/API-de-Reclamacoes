@@ -18,6 +18,7 @@ public class Reclamacao {
   private String titulo;
   @NotBlank @Size(min = 5)
   private String descricao;
+  @NotBlank
   private Localidade localidade;
   private Empresa empresa;
   private LocalDateTime datahora;
