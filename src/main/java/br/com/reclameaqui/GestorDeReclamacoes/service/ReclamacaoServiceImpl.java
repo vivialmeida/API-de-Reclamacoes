@@ -37,7 +37,7 @@ public class ReclamacaoServiceImpl implements ReclamacaoService {
                   validarData(dataInicio, dataFim);
             }
 
-           return reclamacaoRepository.getReclamacaoByDatahora(dataInicio,dataFim);
+           return reclamacaoRepository.getReclamacaoByDatahoraIsBetween(dataInicio,dataFim);
 
       }
 
