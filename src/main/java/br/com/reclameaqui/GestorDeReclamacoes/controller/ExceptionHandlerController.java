@@ -1,6 +1,7 @@
 package br.com.reclameaqui.GestorDeReclamacoes.controller;
 
 import br.com.reclameaqui.GestorDeReclamacoes.model.handler.ValidationErrorHandler;
+import br.com.reclameaqui.GestorDeReclamacoes.service.exception.NaoEncontradoException;
 import br.com.reclameaqui.GestorDeReclamacoes.service.exception.ReclamacaoValidationException;
 import com.mongodb.MongoException;
 import lombok.RequiredArgsConstructor;
@@ -65,6 +66,12 @@ public class ExceptionHandlerController {
     public ResponseEntity<ValidationErrorHandler> handlerAll(Exception e, HttpServletRequest request) {
         ValidationErrorHandler err = this.geraValidationErrorHandler(HttpStatus.INTERNAL_SERVER_ERROR, e, request);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+    }
+
+    @ExceptionHandler(NaoEncontradoException.class)
+    public ResponseEntity<ValidationErrorHandler> handlerNaoEncontrado(ReclamacaoValidationException e, HttpServletRequest request) {
+        ValidationErrorHandler err = this.geraValidationErrorHandler(HttpStatus.NOT_FOUND, e, request);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
     }
 
     @ExceptionHandler(ReclamacaoValidationException.class)

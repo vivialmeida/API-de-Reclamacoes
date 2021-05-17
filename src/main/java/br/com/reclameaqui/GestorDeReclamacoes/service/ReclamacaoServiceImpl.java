@@ -5,6 +5,7 @@ import br.com.reclameaqui.GestorDeReclamacoes.model.Localidade;
 import br.com.reclameaqui.GestorDeReclamacoes.model.Reclamacao;
 import br.com.reclameaqui.GestorDeReclamacoes.respository.ReclamacaoRepository;
 import br.com.reclameaqui.GestorDeReclamacoes.respository.templates.EmpresaRepositoryTemplate;
+import br.com.reclameaqui.GestorDeReclamacoes.service.exception.NaoEncontradoException;
 import br.com.reclameaqui.GestorDeReclamacoes.service.exception.ReclamacaoValidationException;
 import br.com.reclameaqui.GestorDeReclamacoes.service.interfaces.EmpresaService;
 import br.com.reclameaqui.GestorDeReclamacoes.service.interfaces.LocalidadeService;
@@ -41,7 +42,7 @@ public class ReclamacaoServiceImpl implements ReclamacaoService {
       public Reclamacao recuperarReclamacaoPorId(String idReclamacao) {
             Optional<Reclamacao> reclamacoes = reclamacaoRepository.findById(idReclamacao);
             if (!reclamacoes.isPresent()) {
-                  throw new ReclamacaoValidationException("Nenhuma reclamação encontrada para o id informado!");
+                  throw new NaoEncontradoException("Nenhuma reclamação encontrada para o id informado!");
             }
             return reclamacoes.get();
       }
@@ -54,7 +55,7 @@ public class ReclamacaoServiceImpl implements ReclamacaoService {
 
             List<Reclamacao> reclamacoes = reclamacaoRepository.findReclamacaoByDataBetween(dataInicio, dataFim);
             if (reclamacoes.isEmpty()) {
-                  throw new ReclamacaoValidationException("Nenhuma reclamação encontrada para a data informada! ");
+                  throw new NaoEncontradoException("Nenhuma reclamação encontrada para a data informada! ");
             }
 
             return reclamacoes;
@@ -73,7 +74,7 @@ public class ReclamacaoServiceImpl implements ReclamacaoService {
 
             List<Reclamacao> reclamacoes = reclamacaoRepository.findReclamacaoByEmpresaIsIn(idsEmpresa);
             if (reclamacoes.isEmpty()) {
-                  throw new ReclamacaoValidationException("Nenhuma reclamação encontrada para a empresa informada!");
+                  throw new NaoEncontradoException("Nenhuma reclamação encontrada para a empresa informada!");
             }
 
             return reclamacoes;
@@ -94,7 +95,7 @@ public class ReclamacaoServiceImpl implements ReclamacaoService {
 
             List<Reclamacao> reclamacoes = reclamacaoRepository.findReclamacaosByLocalidadeIsIn(idsLocalidades);
             if (reclamacoes.isEmpty()) {
-                  throw new ReclamacaoValidationException("Nenhuma reclamação encontrada para a localidade informada!");
+                  throw new NaoEncontradoException("Nenhuma reclamação encontrada para a localidade informada!");
             }
 
             return reclamacoes;

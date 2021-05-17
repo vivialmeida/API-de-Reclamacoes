@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
@@ -75,7 +74,6 @@ public class ReclamacaoController {
   @PostMapping
   public ResponseEntity<Reclamacao> adicionarReclamacao(@Valid @RequestBody Reclamacao reclamacao, UriComponentsBuilder uriBuilder) {
     Reclamacao novaReclamacao = reclamacaoService.inserirReclamacao(reclamacao);
-    System.out.println(uriBuilder.build().getPath());
     return ResponseEntity.created(URI.create(uriBuilder.build().getPath())).body(novaReclamacao);
   }
 
