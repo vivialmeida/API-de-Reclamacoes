@@ -23,7 +23,7 @@ public class Empresa {
   private String id;
   @NotEmpty
   private String fantasia;
-  @CNPJ
+  @CNPJ(message = "CNPJ inválido")
   private String cnpj;
 
   @Override

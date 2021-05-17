@@ -9,7 +9,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -22,14 +24,14 @@ public class Reclamacao {
 
   @Id @GeneratedValue
   private String id;
-  @NotBlank @Size(min = 2)
+  @NotEmpty  @Size(min = 2)
   private String titulo;
-  @NotBlank @Size(min = 5)
+  @NotEmpty @Size(min = 5)
   private String descricao;
   private LocalDate data;
-  @DBRef
+  @DBRef   @Valid
   private Localidade localidade;
-  @DBRef
+  @DBRef   @Valid
   private Empresa empresa;
 
 }

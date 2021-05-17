@@ -73,9 +73,10 @@ public class ReclamacaoController {
       @ApiResponse(code = 500, message = "Erro interno"),
   })
   @PostMapping
-  public ResponseEntity<Reclamacao> adicionarReclamacao(@RequestBody Reclamacao reclamacao, UriComponentsBuilder uriBuilder) {
+  public ResponseEntity<Reclamacao> adicionarReclamacao(@Valid @RequestBody Reclamacao reclamacao, UriComponentsBuilder uriBuilder) {
     Reclamacao novaReclamacao = reclamacaoService.inserirReclamacao(reclamacao);
-    return ResponseEntity.created(URI.create("teste")).body(novaReclamacao);
+    System.out.println(uriBuilder.build().getPath());
+    return ResponseEntity.created(URI.create(uriBuilder.build().getPath())).body(novaReclamacao);
   }
 
   @ApiOperation(value = "Operação responsável por atualizar uma reclamacao ja existente")
