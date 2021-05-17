@@ -69,7 +69,7 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(NaoEncontradoException.class)
-    public ResponseEntity<ValidationErrorHandler> handlerNaoEncontrado(ReclamacaoValidationException e, HttpServletRequest request) {
+    public ResponseEntity<ValidationErrorHandler> handlerNaoEncontrado(NaoEncontradoException e, HttpServletRequest request) {
         ValidationErrorHandler err = this.geraValidationErrorHandler(HttpStatus.NOT_FOUND, e, request);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
     }
