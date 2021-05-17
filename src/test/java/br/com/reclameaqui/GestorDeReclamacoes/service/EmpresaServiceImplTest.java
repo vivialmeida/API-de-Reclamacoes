@@ -37,17 +37,17 @@ public class EmpresaServiceImplTest {
       public void testRecuperarEmpresas(){
             when(empresaRepository.findAll()).thenReturn(Arrays.asList(new Empresa("id", "fantasia", "cnpj")));
             HashSet<Empresa> result = empresaServiceImpl.recuperarEmpresas();
-            Assert.assertEquals(new HashSet<Empresa>(Arrays.asList(new Empresa("id", "fantasia", "cnpj"))), result);
+            Assert.assertEquals(new HashSet<>(Arrays.asList(new Empresa("id", "fantasia", "cnpj"))), result);
             verify(empresaRepository).findAll();
 
       }
 
       @Test
       public void testRecuperarEmpresaPor() {
-            when(empresaRepository.findByFantasia(anyString())).thenReturn(Arrays.<Empresa>asList(new Empresa("id", "fantasia", "cnpj")));
+            when(empresaRepository.findEmpresaByFantasia(anyString())).thenReturn(Arrays.<Empresa>asList(new Empresa("id", "fantasia", "cnpj")));
             HashSet<Empresa> result = empresaServiceImpl.recuperarEmpresaPor("nomeEmpresa");
-            Assert.assertEquals(new HashSet<Empresa>(Arrays.asList(new Empresa("id", "fantasia", "cnpj"))), result);
-            verify(empresaRepository).findByFantasia(anyString());
+            Assert.assertEquals(new HashSet<>(Arrays.asList(new Empresa("id", "fantasia", "cnpj"))), result);
+            verify(empresaRepository).findEmpresaByFantasia(anyString());
             Assert.assertFalse(result.isEmpty());
 
       }

@@ -13,7 +13,6 @@ public class EmpresaServiceImpl implements EmpresaService {
 
       private final EmpresaRepository empresaRepository;
 
-
       @Override
       public Empresa adicionarOuAtualizarEmpresa(Empresa empresa) {
             return empresaRepository.save(empresa);
@@ -26,7 +25,7 @@ public class EmpresaServiceImpl implements EmpresaService {
 
       @Override
       public HashSet<Empresa> recuperarEmpresaPor(String nomeEmpresa) {
-             return new HashSet<>(empresaRepository.findByFantasia(nomeEmpresa));
+             return new HashSet<>(empresaRepository.findEmpresaByFantasia(nomeEmpresa));
 
       }
 }

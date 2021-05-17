@@ -2,7 +2,6 @@ package br.com.reclameaqui.GestorDeReclamacoes.controller;
 
 import br.com.reclameaqui.GestorDeReclamacoes.model.Reclamacao;
 import br.com.reclameaqui.GestorDeReclamacoes.service.interfaces.ReclamacaoService;
-import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

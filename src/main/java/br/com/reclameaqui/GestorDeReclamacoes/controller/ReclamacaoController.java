@@ -13,13 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Validated
 @RestController
@@ -111,9 +109,9 @@ public class ReclamacaoController {
       @ApiResponse(code = 500, message = "Erro interno"),
   })
   @GetMapping("/empresa")
-  public ResponseEntity<List<Reclamacao>> recuperarReclamacoesPorEmpresa(@RequestParam(value = "nomeEmpresa", required = false) String nomeEmpresa,
-                                                                         @RequestParam(value = "cnpjEmpresa" , required = false) String cnpjEmpresa) {
-    return ResponseEntity.ok(reclamacaoService.recuperarReclamacaoPorEmpresa(nomeEmpresa, cnpjEmpresa));
+  public ResponseEntity<List<Reclamacao>> recuperarReclamacoesPorEmpresa(@RequestParam(value = "nome", required = false) String nome,
+                                                                         @RequestParam(value = "cnpj" , required = false) String cnpj) {
+    return ResponseEntity.ok(reclamacaoService.recuperarReclamacaoPorEmpresa(nome, cnpj));
   }
 
   @ApiOperation(value = "Operação responsável por recuperar uma lista de reclamacoes por localidade")

@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface EmpresaRepository extends MongoRepository<Empresa, String> {
 
-  @Query("{'fantasia': ?0}")
-  List<Empresa> findByFantasia(String nome);
+  List<Empresa> findEmpresaByFantasia(String nome);
 
 }
