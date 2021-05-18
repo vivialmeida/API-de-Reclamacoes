@@ -1,0 +1,364 @@
+{
+	"info": {
+		"_postman_id": "40f63c0b-1c5d-49ce-9543-6e673ddae03e",
+		"name": "Reclame Aqui",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Empresa",
+			"item": [
+				{
+					"name": "Recupera  todas as empresas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/reclame-aqui/empresas",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reclame-aqui",
+								"empresas"
+							]
+						},
+						"description": "Endpoint responsavel por recuperar um lista de reclamações por localidade (país, estado ou cidade)"
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar empresa pelo nome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/reclame-aqui/empresas/Magazine Luiza",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reclame-aqui",
+								"empresas",
+								"Magazine Luiza"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Reclamacao",
+			"item": [
+				{
+					"name": "recuperar reclamacoes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/reclame-aqui/reclamacoes",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reclame-aqui",
+								"reclamacoes"
+							]
+						},
+						"description": "Endpoint responsavel por trazer uma lista de reclamacoes"
+					},
+					"response": []
+				},
+				{
+					"name": "Inserir reclamacao",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n \"titulo\": \"Prooduto vencido\",\n  \"descricao\": \"Remedio fora do vencimento sendo vendido para os clientes\", \n  \"localidade\": {\n      \"pais\": \"Brasil\",\n      \"estado\": \"Maranhao\",\n      \"cidade\": \"Sao Luis\"\n      },\n  \"empresa\": {\n      \"fantasia\": \"Pague Menos\",\n      \"cnpj\": \"63682984000158\"\n\n      },\n  \"datahora\": \"2021-05-14T16:12:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/reclame-aqui/reclamacoes",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reclame-aqui",
+								"reclamacoes"
+							]
+						},
+						"description": "Adiciona uma nova reclamacao\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar reclamacao por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/reclame-aqui/reclamacoes/609ecde59de68072464a0326",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reclame-aqui",
+								"reclamacoes",
+								"609ecde59de68072464a0326"
+							]
+						},
+						"description": "Retorno uma reclamacao referente ao id informado\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar reclamação",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"609ecde59de68072464a0326\",\n    \"titulo\": \"Prooduto vencido\",\n    \"descricao\": \"Remedio fora do vencimento sendo vendido para os clientes\",\n    \"localidade\": {\n        \"pais\": \"Brasil\",\n        \"estado\": \"Para\",\n        \"cidade\": \"Belem\"\n    },\n    \"empresa\": {\n        \"fantasia\": \"Pague Menos\",\n        \"cnpj\": \"63682984000158\"\n    },\n    \"datahora\": \"2021-05-14T16:12:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/reclame-aqui/reclamacoes",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reclame-aqui",
+								"reclamacoes"
+							]
+						},
+						"description": "Endpoint responsavel por atualizar uma reclamacao já existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir reclamação",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/reclame-aqui/reclamacoes/609ecde59de68072464a0326",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reclame-aqui",
+								"reclamacoes",
+								"609ecde59de68072464a0326"
+							]
+						},
+						"description": "Endpoint responsável por excluir um reclamação atraves do id"
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar reclamações por data",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{'data':{ $gte: ?0}, data':{ $lte: ?1}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/reclame-aqui/reclamacoes/data/?dataInicio=2021-05-14&dataFim=2021-05-20",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reclame-aqui",
+								"reclamacoes",
+								"data",
+								""
+							],
+							"query": [
+								{
+									"key": "dataInicio",
+									"value": "2021-05-14"
+								},
+								{
+									"key": "dataFim",
+									"value": "2021-05-20"
+								}
+							]
+						},
+						"description": "Endpoint responsavel por recuperar um lista de reclamações em um intervalo de data"
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar reclamações por localidade",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{'data':{ $gte: ?0}, data':{ $lte: ?1}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/reclame-aqui/reclamacoes/localidade?pais=Brasil&estado=Maranhao",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reclame-aqui",
+								"reclamacoes",
+								"localidade"
+							],
+							"query": [
+								{
+									"key": "pais",
+									"value": "Brasil"
+								},
+								{
+									"key": "estado",
+									"value": "Maranhao"
+								},
+								{
+									"key": "cidade",
+									"value": "Belem",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Endpoint responsavel por recuperar um lista de reclamações por localidade (país, estado ou cidade)"
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar reclamações por Empresa",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{'data':{ $gte: ?0}, data':{ $lte: ?1}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/reclame-aqui/reclamacoes/empresa?nome=Pague Menos&cnpj=63682984000158",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reclame-aqui",
+								"reclamacoes",
+								"empresa"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Pague Menos"
+								},
+								{
+									"key": "cnpj",
+									"value": "63682984000158"
+								},
+								{
+									"key": "cidade",
+									"value": "Belem",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Endpoint responsavel por recuperar um lista de reclamações por localidade (país, estado ou cidade)"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
