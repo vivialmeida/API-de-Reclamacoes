@@ -7,9 +7,15 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashSet;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/empresas")
@@ -25,8 +31,13 @@ public class EmpresaController {
           @ApiResponse(code = 500, message = "Erro interno"),
       })
       @GetMapping
-      public ResponseEntity<HashSet<Empresa>> recuperarEmpresa(){
-            return  ResponseEntity.ok(empresaService.recuperarEmpresas());
+      public ResponseEntity<HashSet<Empresa>> recuperarEmpresas(){
+
+            HashSet<Empresa>  empresas = empresaService.recuperarEmpresas();
+            empresas.forEach(empresa -> empresa.add(linkTo(methodOn(EmpresaController.class).recuperarEmpresaPor(empresa.getFantasia())).withSelfRel()));
+
+            return  ResponseEntity.ok().body(empresas);
+
       }
 
       @ApiOperation(value = "Operação responsável por recuperar empresas atraves do nome")
@@ -37,7 +48,8 @@ public class EmpresaController {
       })
       @GetMapping("/{nome}")
       public ResponseEntity<HashSet<Empresa>> recuperarEmpresaPor(@PathVariable("nome") String nome){
-            return  ResponseEntity.ok(empresaService.recuperarEmpresaPor(nome));
+            HashSet<Empresa> empresas = empresaService.recuperarEmpresaPor(nome);
+            return  ResponseEntity.ok().body(empresas);
       }
 
 }
