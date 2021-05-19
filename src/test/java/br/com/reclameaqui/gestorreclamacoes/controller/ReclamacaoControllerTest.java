@@ -2,6 +2,8 @@ package br.com.reclameaqui.gestorreclamacoes.controller;
 
 import br.com.reclameaqui.gestorreclamacoes.model.Reclamacao;
 import br.com.reclameaqui.gestorreclamacoes.service.interfaces.ReclamacaoService;
+import com.google.common.collect.Lists;
+import org.assertj.core.util.Arrays;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +23,8 @@ import static org.mockito.Mockito.*;
 public class ReclamacaoControllerTest {
       @Mock
       ReclamacaoService reclamacaoService;
+      @Mock
+      Page<Reclamacao> page;
       @InjectMocks
       ReclamacaoController reclamacaoController;
 
@@ -31,11 +35,10 @@ public class ReclamacaoControllerTest {
 
       @Test
       public void testRecuperarReclamacoes(){
-            Page<Reclamacao> reclamacoes = null;
-
-            when(reclamacaoService.recuperarReclamacoes(Integer.valueOf(10),Integer.valueOf(0)))
-                .thenReturn(reclamacoes);
-            ResponseEntity<Page<Reclamacao>> result = reclamacaoController.recuperarReclamacoes(Integer.valueOf(10),Integer.valueOf(0));
+            when(page.getContent()).thenReturn(Lists.newArrayList(Reclamacao.builder().id("1").build()));
+            when(reclamacaoService.recuperarReclamacoes(anyInt(),anyInt()))
+                .thenReturn(page);
+            reclamacaoController.recuperarReclamacoes(Integer.valueOf(10),Integer.valueOf(0));
             verify(reclamacaoService).recuperarReclamacoes(anyInt(),anyInt());
       }
 

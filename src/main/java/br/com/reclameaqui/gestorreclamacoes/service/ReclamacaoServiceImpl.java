@@ -34,6 +34,9 @@ public class ReclamacaoServiceImpl implements ReclamacaoService {
       public Page<Reclamacao> recuperarReclamacoes(Integer page, Integer size) {
             Pageable pageable = PageRequest.of(page, size);
             Page<Reclamacao> reclamacaos = reclamacaoRepository.findAll(pageable);
+            if (!reclamacaos.hasContent()){
+                  throw new NaoEncontradoException("Não ha registro de reclamacoes");
+            }
             return reclamacaos;
 
       }
