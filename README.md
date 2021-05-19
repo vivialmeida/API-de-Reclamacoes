@@ -9,6 +9,8 @@
 - [X] Buscar reclamacões em um intervalo de datas
 - [X] Buscar reclamacões por empresa
 - [X] Buscar reclamacões por localidade
+- [X] Buscar reclamacões por cidade e empresa
+
 
 2. Empresa
 - [X] Buscar empresas
