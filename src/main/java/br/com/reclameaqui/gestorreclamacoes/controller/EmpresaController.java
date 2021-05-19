@@ -49,6 +49,8 @@ public class EmpresaController {
       @GetMapping("/{nome}")
       public ResponseEntity<HashSet<EmpresaDTO>> recuperarEmpresaPor(@PathVariable("nome") String nome){
             HashSet<EmpresaDTO> empresas = empresaService.recuperarEmpresaPor(nome);
+            empresas.forEach(empresa -> empresa.add(linkTo(methodOn(EmpresaController.class).recuperarEmpresas()).withRel("Listar todas as empresas")));
+
             return  ResponseEntity.ok().body(empresas);
       }
 
