@@ -1,12 +1,10 @@
 package br.com.reclameaqui.gestorreclamacoes.model.dto;
 
 import br.com.reclameaqui.gestorreclamacoes.model.Empresa;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.springframework.hateoas.RepresentationModel;
+
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
@@ -44,4 +42,5 @@ public class EmpresaDTO  extends RepresentationModel<EmpresaDTO> {
       public int hashCode() {
             return Objects.hash(super.hashCode(), fantasia, cnpj);
       }
+
 }

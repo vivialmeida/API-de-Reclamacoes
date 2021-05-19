@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class ReclamacaoDTO extends RepresentationModel<ReclamacaoDTO>  {
 
       private String id;
@@ -41,6 +42,7 @@ public class ReclamacaoDTO extends RepresentationModel<ReclamacaoDTO>  {
                     .localidade(LocalidadeDTO.convertDTOLocalidade(reclamacao.getLocalidade()))
                     .build();
       }
+
 }
 
 

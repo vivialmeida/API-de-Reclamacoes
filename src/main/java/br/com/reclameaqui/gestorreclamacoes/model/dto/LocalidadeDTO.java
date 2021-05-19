@@ -1,11 +1,7 @@
 package br.com.reclameaqui.gestorreclamacoes.model.dto;
 
 import br.com.reclameaqui.gestorreclamacoes.model.Localidade;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.hateoas.RepresentationModel;
+import lombok.*;
 
 import javax.validation.constraints.Size;
 
@@ -13,7 +9,7 @@ import javax.validation.constraints.Size;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LocalidadeDTO  extends RepresentationModel<LocalidadeDTO> {
+public class LocalidadeDTO {
 
       private String id;
       @Size(min = 3)
@@ -31,4 +27,5 @@ public class LocalidadeDTO  extends RepresentationModel<LocalidadeDTO> {
                     .cidade(localidade.getCidade())
                     .build();
       }
+
 }
