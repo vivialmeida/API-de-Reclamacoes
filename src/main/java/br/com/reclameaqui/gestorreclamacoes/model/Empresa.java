@@ -6,10 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.hateoas.Links;
 import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 
 @Data
@@ -48,5 +50,11 @@ public class Empresa extends RepresentationModel<Empresa> {
     int result = fantasia.hashCode();
     result = 31 * result + cnpj.hashCode();
     return result;
+  }
+
+  @Transient
+  @Override
+  public Links getLinks() {
+    return super.getLinks();
   }
 }
