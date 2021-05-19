@@ -135,9 +135,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{local}}/reclame-aqui/reclamacoes/60a5129cae9c61170d1bd6e7",
+							"raw": "{{server}}/reclame-aqui/reclamacoes/60a5129cae9c61170d1bd6e7",
 							"host": [
-								"{{local}}"
+								"{{server}}"
 							],
 							"path": [
 								"reclame-aqui",
@@ -355,6 +355,37 @@
 							]
 						},
 						"description": "Endpoint responsavel por recuperar um lista de reclamações por localidade (país, estado ou cidade)"
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar recamacoes por cidade e empresa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/reclame-aqui/reclamacoes/localidade/cidade-empresa/?cidade=Salto de Pirapora&fantasia=Ifood",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"reclame-aqui",
+								"reclamacoes",
+								"localidade",
+								"cidade-empresa",
+								""
+							],
+							"query": [
+								{
+									"key": "cidade",
+									"value": "Salto de Pirapora"
+								},
+								{
+									"key": "fantasia",
+									"value": "Ifood"
+								}
+							]
+						}
 					},
 					"response": []
 				}

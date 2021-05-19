@@ -26,10 +26,5 @@ public interface ReclamacaoService {
 
       void excluirReclamacao(String idReclamacao);
 
-
-
-
-
-
-
+      List<ReclamacaoDTO> recuperarReclamacaoDeEmpresaPorCidade(String cidade, String Empresa);
 }

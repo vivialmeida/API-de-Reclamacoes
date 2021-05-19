@@ -49,8 +49,5 @@ public class Empresa {
     return result;
   }
 
-  public static  void  convertDTOParaEntityReclamacao(){
-
-  }
 
 }

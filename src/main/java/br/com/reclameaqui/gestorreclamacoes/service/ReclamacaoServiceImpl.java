@@ -3,6 +3,7 @@ package br.com.reclameaqui.gestorreclamacoes.service;
 import br.com.reclameaqui.gestorreclamacoes.model.Empresa;
 import br.com.reclameaqui.gestorreclamacoes.model.Localidade;
 import br.com.reclameaqui.gestorreclamacoes.model.Reclamacao;
+import br.com.reclameaqui.gestorreclamacoes.model.dto.EmpresaDTO;
 import br.com.reclameaqui.gestorreclamacoes.model.dto.ReclamacaoDTO;
 import br.com.reclameaqui.gestorreclamacoes.respository.ReclamacaoRepository;
 import br.com.reclameaqui.gestorreclamacoes.respository.templates.EmpresaRepositoryTemplate;
@@ -17,12 +18,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -130,6 +128,18 @@ public class ReclamacaoServiceImpl implements ReclamacaoService {
       @Override
       public void excluirReclamacao(String idReclamacao) {
             reclamacaoRepository.deleteById(idReclamacao);
+      }
+
+      @Override
+      public List<ReclamacaoDTO> recuperarReclamacaoDeEmpresaPorCidade(String cidade, String fantasia) {
+            HashSet<EmpresaDTO> empresas =  empresaService.recuperarEmpresaPor(fantasia);
+
+            List<String > idsLocalidade = localidadeService.recuperarIdsLocalidade(Localidade.builder().cidade(cidade).build());
+
+            List<String> idEmpresas = empresas.stream().map(EmpresaDTO::getId)
+                    .collect(Collectors.toList());
+
+            return convertListReclamacaoEmReclamacaoDTO(reclamacaoRepository.findReclamacaoByEmpresaIsInAndLocalidadeIsIn(idEmpresas, idsLocalidade));
       }
 
       private void validarData(LocalDate dataInicio, LocalDate dataFim) {

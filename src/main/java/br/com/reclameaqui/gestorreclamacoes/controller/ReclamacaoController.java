@@ -135,4 +135,16 @@ public class ReclamacaoController {
                                                                          @RequestParam(value = "cidade", required = false) String cidade) {
     return ResponseEntity.ok(reclamacaoService.recuperarReclamacaoPorLocalidade(pais, estado, cidade));
   }
+
+  @ApiOperation(value = "Operação responsável por recuperar uma lista de reclamacoes por cidade e empresa")
+  @ApiResponses(value = {
+          @ApiResponse(code = 200, message = "Ok"),
+          @ApiResponse(code = 400, message = "Parâmetros incorretos"),
+          @ApiResponse(code = 500, message = "Erro interno"),
+  })
+  @GetMapping("localidade/cidade-empresa")
+  public ResponseEntity<List<ReclamacaoDTO>>reclamacaoPorCidadeEmpresa(@RequestParam("cidade") String cidade,
+                                                        @RequestParam("fantasia") String fantasia){
+    return  ResponseEntity.ok(reclamacaoService.recuperarReclamacaoDeEmpresaPorCidade(cidade, fantasia));
+  }
 }

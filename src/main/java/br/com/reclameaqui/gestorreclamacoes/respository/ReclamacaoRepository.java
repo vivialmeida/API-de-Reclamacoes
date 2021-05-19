@@ -17,4 +17,6 @@ public interface ReclamacaoRepository extends MongoRepository<Reclamacao, String
 
       List<Reclamacao> findReclamacaoByEmpresaIsIn(List<String> idsEmpresa);
 
+      List<Reclamacao> findReclamacaoByEmpresaIsInAndLocalidadeIsIn(List<String >idEmpresa, List<String> idLocalidade);
+
 }
