@@ -18,9 +18,9 @@
 
 **Coleção:** 
 
-Collection da API no Postman:
+Collection da API no Postman: https://github.com/vivialmeida/Challenge-Backend-ReclameAQUI/blob/master/src/main/resources/postman/reclame_aqui_postman_collection.json
 
-Environment da API no Postman:
+Environment da API no Postman: https://github.com/vivialmeida/Challenge-Backend-ReclameAQUI/blob/master/src/main/resources/postman/reclame_aqui_postman_environment.json
 
 **Hosts:**
 
@@ -54,6 +54,9 @@ Para executar o programa localmente, caso queira apontar para desenvolvimento:
     
 **Diagramas:**
 
+1.Diagrama de classes: 
 
+
+![alt text](https://github.com/vivialmeida/Challenge-Backend-ReclameAQUI/blob/master/src/main/resources/diagramas/diagrama_classes.png)
 
 
