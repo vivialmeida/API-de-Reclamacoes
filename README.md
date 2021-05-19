@@ -26,7 +26,7 @@ Environment da API no Postman: https://github.com/vivialmeida/Challenge-Backend-
 
 Local: localhost:8080/
 
-Server: https://appreclame-aqui.herokuapp.com/
+Server: https://appreclame-aqui.herokuapp.com/ (Geralmente a primeira request ao servidor, demora aproximadamente 50s, após isso o retorno das demais requests possui um limite de tempo aceitaval)
 
 
 **Documentação da API:**
