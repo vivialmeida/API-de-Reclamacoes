@@ -9,4 +9,7 @@ public interface EmpresaRepository extends MongoRepository<Empresa, String> {
 
   List<Empresa> findEmpresaByFantasia(String nome);
 
+  Empresa findEmpresaByFantasiaAndCnpj(String fantasia, String cnpj);
+
+
 }

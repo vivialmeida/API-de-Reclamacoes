@@ -8,4 +8,5 @@ public interface LocalidadeRepositoryTemplate {
 
       List<String> recuperarIdsLocalidade(Localidade localidade);
 
+
 }

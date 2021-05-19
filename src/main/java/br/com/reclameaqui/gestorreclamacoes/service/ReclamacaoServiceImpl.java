@@ -3,6 +3,7 @@ package br.com.reclameaqui.gestorreclamacoes.service;
 import br.com.reclameaqui.gestorreclamacoes.model.Empresa;
 import br.com.reclameaqui.gestorreclamacoes.model.Localidade;
 import br.com.reclameaqui.gestorreclamacoes.model.Reclamacao;
+import br.com.reclameaqui.gestorreclamacoes.model.dto.ReclamacaoDTO;
 import br.com.reclameaqui.gestorreclamacoes.respository.ReclamacaoRepository;
 import br.com.reclameaqui.gestorreclamacoes.respository.templates.EmpresaRepositoryTemplate;
 import br.com.reclameaqui.gestorreclamacoes.service.exception.NaoEncontradoException;
@@ -12,11 +13,13 @@ import br.com.reclameaqui.gestorreclamacoes.service.interfaces.LocalidadeService
 import br.com.reclameaqui.gestorreclamacoes.service.interfaces.ReclamacaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -31,27 +34,28 @@ public class ReclamacaoServiceImpl implements ReclamacaoService {
       private final EmpresaService empresaService;
 
       @Override
-      public Page<Reclamacao> recuperarReclamacoes(Integer page, Integer size) {
+      public PageImpl<ReclamacaoDTO> recuperarReclamacoes(Integer page, Integer size) {
             Pageable pageable = PageRequest.of(page, size);
             Page<Reclamacao> reclamacaos = reclamacaoRepository.findAll(pageable);
             if (!reclamacaos.hasContent()){
                   throw new NaoEncontradoException("Não ha registro de reclamacoes");
             }
-            return reclamacaos;
+
+            return new PageImpl<ReclamacaoDTO>(convertListReclamacaoEmReclamacaoDTO(reclamacaos.getContent()), pageable, reclamacaos.getTotalElements());
 
       }
 
       @Override
-      public Reclamacao recuperarReclamacaoPorId(String idReclamacao) {
+      public ReclamacaoDTO recuperarReclamacaoPorId(String idReclamacao) {
             Optional<Reclamacao> reclamacoes = reclamacaoRepository.findById(idReclamacao);
             if (!reclamacoes.isPresent()) {
                   throw new NaoEncontradoException("Nenhuma reclamação encontrada para o id informado!");
             }
-            return reclamacoes.get();
+            return ReclamacaoDTO.convertDTOReclamacao(reclamacoes.get());
       }
 
       @Override
-      public List<Reclamacao> recuperarReclamacaoPorData(LocalDate dataInicio, LocalDate dataFim) {
+      public List<ReclamacaoDTO> recuperarReclamacaoPorData(LocalDate dataInicio, LocalDate dataFim) {
             if (Objects.nonNull(dataFim)) {
                   validarData(dataInicio, dataFim);
             }
@@ -61,11 +65,11 @@ public class ReclamacaoServiceImpl implements ReclamacaoService {
                   throw new NaoEncontradoException("Nenhuma reclamação encontrada para a data informada! ");
             }
 
-            return reclamacoes;
+            return convertListReclamacaoEmReclamacaoDTO(reclamacoes);
       }
 
       @Override
-      public List<Reclamacao> recuperarReclamacaoPorEmpresa(String nomeEmpresa, String cnpjEmpresa) {
+      public List<ReclamacaoDTO> recuperarReclamacaoPorEmpresa(String nomeEmpresa, String cnpjEmpresa) {
             Empresa empresa = Empresa.builder()
                     .fantasia(nomeEmpresa)
                     .cnpj(cnpjEmpresa)
@@ -80,12 +84,12 @@ public class ReclamacaoServiceImpl implements ReclamacaoService {
                   throw new NaoEncontradoException("Nenhuma reclamação encontrada para a empresa informada!");
             }
 
-            return reclamacoes;
+            return convertListReclamacaoEmReclamacaoDTO(reclamacoes);
 
       }
 
       @Override
-      public List<Reclamacao> recuperarReclamacaoPorLocalidade(String pais, String estado, String cidade) {
+      public List<ReclamacaoDTO> recuperarReclamacaoPorLocalidade(String pais, String estado, String cidade) {
             Localidade localidade = Localidade.builder()
                     .pais(pais)
                     .estado(estado)
@@ -101,26 +105,26 @@ public class ReclamacaoServiceImpl implements ReclamacaoService {
                   throw new NaoEncontradoException("Nenhuma reclamação encontrada para a localidade informada!");
             }
 
-            return reclamacoes;
+            return convertListReclamacaoEmReclamacaoDTO(reclamacoes);
 
       }
 
       @Override
-      public Reclamacao inserirReclamacao(Reclamacao reclamacao) {
+      public ReclamacaoDTO inserirReclamacao(Reclamacao reclamacao) {
             Localidade localidade = localidadeService.adicionarOuAtualizarLocalidade(reclamacao.getLocalidade());
             Empresa empresa = empresaService.adicionarOuAtualizarEmpresa(reclamacao.getEmpresa());
             reclamacao.setLocalidade(localidade);
             reclamacao.setEmpresa(empresa);
-            return reclamacaoRepository.insert(reclamacao);
+            return ReclamacaoDTO.convertDTOReclamacao(reclamacaoRepository.insert(reclamacao));
 
       }
 
       @Override
-      public Reclamacao atualizarReclamacao(String id, Reclamacao reclamacao) {
+      public ReclamacaoDTO atualizarReclamacao(String id, Reclamacao reclamacao) {
             reclamacao.setId(id);
             empresaService.adicionarOuAtualizarEmpresa(reclamacao.getEmpresa());
             localidadeService.adicionarOuAtualizarLocalidade(reclamacao.getLocalidade());
-            return reclamacaoRepository.save(reclamacao);
+            return ReclamacaoDTO.convertDTOReclamacao(reclamacaoRepository.save(reclamacao));
       }
 
       @Override
@@ -146,4 +150,12 @@ public class ReclamacaoServiceImpl implements ReclamacaoService {
                   throw new ReclamacaoValidationException("Filtro de empresa nao informado");
             }
       }
+
+      private List<ReclamacaoDTO> convertListReclamacaoEmReclamacaoDTO(List<Reclamacao> reclamacoes) {
+            List<ReclamacaoDTO> reclamacoesDTO = new ArrayList<>();
+            reclamacoes.forEach(reclamacao -> reclamacoesDTO.add(ReclamacaoDTO.convertDTOReclamacao(reclamacao)));
+            return reclamacoesDTO;
+      }
+
+
 }

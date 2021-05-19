@@ -52,21 +52,20 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{server}}/reclame-aqui/empresas/Magazine Luiza",
+							"raw": "{{server}}/reclame-aqui/empresas/Ifood",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
 								"reclame-aqui",
 								"empresas",
-								"Magazine Luiza"
+								"Ifood"
 							]
 						}
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Reclamacao",
@@ -109,7 +108,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\n \"titulo\": \"Prooduto vencido\",\n  \"descricao\": \"Remedio fora do vencimento sendo vendido para os clientes\", \n  \"localidade\": {\n      \"pais\": \"Brasil\",\n      \"estado\": \"Maranhao\",\n      \"cidade\": \"Sao Luis\"\n      },\n  \"empresa\": {\n      \"fantasia\": \"Pague Menos\",\n      \"cnpj\": \"63682984000158\"\n\n      },\n  \"datahora\": \"2021-05-14T16:12:00\"\n}",
+							"raw": "{\n\n \"titulo\": \"Ainda não houve estorno do pagamento\",\n  \"descricao\": \"No dia 28/03 fiz um pedido no valor de 154,99 de lanches do Mac donalds fiquei horas esperando o pedido depois tive a resposta q meu pedido havia sido cancelado e que o motoqueiro tinha tido um problema e não consiguiria fazer a entrega. Me dizeram q o valor será estornado do meu cartão, mas isso não ocorreu.\", \n  \"localidade\": {\n      \"pais\": \"Brasil\",\n      \"estado\": \"Taboão da Serra\",\n      \"cidade\": \"Sao Paulo\"\n      },\n  \"empresa\": {\n      \"fantasia\": \"Ifood\",\n      \"cnpj\": \"30587253000174\"\n\n      },\n  \"data\": \"2021-05-17\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -136,14 +135,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{server}}/reclame-aqui/reclamacoes/609ecde59de68072464a0326",
+							"raw": "{{local}}/reclame-aqui/reclamacoes/60a5129cae9c61170d1bd6e7",
 							"host": [
-								"{{server}}"
+								"{{local}}"
 							],
 							"path": [
 								"reclame-aqui",
 								"reclamacoes",
-								"609ecde59de68072464a0326"
+								"60a5129cae9c61170d1bd6e7"
 							]
 						},
 						"description": "Retorno uma reclamacao referente ao id informado\n"
@@ -157,7 +156,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"609ecde59de68072464a0326\",\n    \"titulo\": \"Prooduto vencido\",\n    \"descricao\": \"Remedio fora do vencimento sendo vendido para os clientes\",\n    \"localidade\": {\n        \"pais\": \"Brasil\",\n        \"estado\": \"Para\",\n        \"cidade\": \"Belem\"\n    },\n    \"empresa\": {\n        \"fantasia\": \"Pague Menos\",\n        \"cnpj\": \"63682984000158\"\n    },\n    \"datahora\": \"2021-05-14T16:12:00\"\n}",
+							"raw": "\n{\n    \"id\": \"60a5129cae9c61170d1bd6e7\",\n    \"titulo\": \"Ainda não houve estorno do pagamento\",\n    \"descricao\": \"No dia 28/03 fiz um pedido no valor de 154,99 de lanches do Mac donalds fiquei horas esperando o pedido depois tive a resposta q meu pedido havia sido cancelado e que o motoqueiro tinha tido um problema e não consiguiria fazer a entrega. Me dizeram q o valor será estornado do meu cartão, mas isso não ocorreu.\",\n    \"data\": \"2021-05-09\",\n    \"localidade\": {\n        \"id\": \"60a5129cae9c61170d1bd6e5\",\n        \"pais\": \"Brasil\",\n        \"estado\": \"Taboão da Serra\",\n        \"cidade\": \"Sao Paulo\"\n    },\n    \"empresa\": {\n        \"id\": \"60a5129cae9c61170d1bd6e6\",\n        \"fantasia\": \"Ifood\",\n        \"cnpj\": \"30587253000174\"\n    }\n\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -165,13 +164,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{server}}/reclame-aqui/reclamacoes",
+							"raw": "{{server}}/reclame-aqui/reclamacoes/60a5129cae9c61170d1bd6e7",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
 								"reclame-aqui",
-								"reclamacoes"
+								"reclamacoes",
+								"60a5129cae9c61170d1bd6e7"
 							]
 						},
 						"description": "Endpoint responsavel por atualizar uma reclamacao já existente"
@@ -184,14 +184,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{server}}/reclame-aqui/reclamacoes/609ecde59de68072464a0326",
+							"raw": "{{server}}/reclame-aqui/reclamacoes/60a512a4ae9c61170d1bd6e8",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
 								"reclame-aqui",
 								"reclamacoes",
-								"609ecde59de68072464a0326"
+								"60a512a4ae9c61170d1bd6e8"
 							]
 						},
 						"description": "Endpoint responsável por excluir um reclamação atraves do id"
@@ -215,7 +215,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{'data':{ $gte: ?0}, data':{ $lte: ?1}}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -223,7 +223,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{server}}/reclame-aqui/reclamacoes/data/?dataInicio=2021-05-14&dataFim=2021-05-20",
+							"raw": "{{server}}/reclame-aqui/reclamacoes/data/?dataInicio=2021-05-01&dataFim=2021-05-20",
 							"host": [
 								"{{server}}"
 							],
@@ -236,7 +236,7 @@
 							"query": [
 								{
 									"key": "dataInicio",
-									"value": "2021-05-14"
+									"value": "2021-05-01"
 								},
 								{
 									"key": "dataFim",
@@ -273,7 +273,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{server}}/reclame-aqui/reclamacoes/localidade?pais=Brasil&estado=Maranhao",
+							"raw": "{{server}}/reclame-aqui/reclamacoes/localidade?pais=Brasil",
 							"host": [
 								"{{server}}"
 							],
@@ -289,7 +289,8 @@
 								},
 								{
 									"key": "estado",
-									"value": "Maranhao"
+									"value": "Maranhao",
+									"disabled": true
 								},
 								{
 									"key": "cidade",
@@ -327,7 +328,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{server}}/reclame-aqui/reclamacoes/empresa?nome=Pague Menos&cnpj=63682984000158",
+							"raw": "{{server}}/reclame-aqui/reclamacoes/empresa?cnpj=30587253000174",
 							"host": [
 								"{{server}}"
 							],
@@ -339,11 +340,12 @@
 							"query": [
 								{
 									"key": "nome",
-									"value": "Pague Menos"
+									"value": "Pague Menos",
+									"disabled": true
 								},
 								{
 									"key": "cnpj",
-									"value": "63682984000158"
+									"value": "30587253000174"
 								},
 								{
 									"key": "cidade",
@@ -356,9 +358,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

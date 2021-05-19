@@ -1,9 +1,9 @@
 package br.com.reclameaqui.gestorreclamacoes.controller;
 
 import br.com.reclameaqui.gestorreclamacoes.model.Reclamacao;
+import br.com.reclameaqui.gestorreclamacoes.model.dto.ReclamacaoDTO;
 import br.com.reclameaqui.gestorreclamacoes.service.interfaces.ReclamacaoService;
 import com.google.common.collect.Lists;
-import org.assertj.core.util.Arrays;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class ReclamacaoControllerTest {
       @Mock
       ReclamacaoService reclamacaoService;
       @Mock
-      Page<Reclamacao> page;
+      Page<ReclamacaoDTO> page;
       @InjectMocks
       ReclamacaoController reclamacaoController;
 
@@ -35,7 +35,7 @@ public class ReclamacaoControllerTest {
 
       @Test
       public void testRecuperarReclamacoes(){
-            when(page.getContent()).thenReturn(Lists.newArrayList(Reclamacao.builder().id("1").build()));
+            when(page.getContent()).thenReturn(Lists.newArrayList(ReclamacaoDTO.builder().id("1").build()));
             when(reclamacaoService.recuperarReclamacoes(anyInt(),anyInt()))
                 .thenReturn(page);
             reclamacaoController.recuperarReclamacoes(Integer.valueOf(10),Integer.valueOf(0));
@@ -44,27 +44,27 @@ public class ReclamacaoControllerTest {
 
       @Test
       public void testRecuperarReclamacaoPorId(){
-            when(reclamacaoService.recuperarReclamacaoPorId(anyString())).thenReturn(new Reclamacao());
+            when(reclamacaoService.recuperarReclamacaoPorId(anyString())).thenReturn(new ReclamacaoDTO());
 
-            ResponseEntity<Reclamacao> result = reclamacaoController.recuperarReclamacaoPorId("1");
+            ResponseEntity<ReclamacaoDTO> result = reclamacaoController.recuperarReclamacaoPorId("1");
             verify(reclamacaoService, times(1)).recuperarReclamacaoPorId(anyString());
             Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
       }
 
       @Test
       public void testAdicionarReclamacao() throws URISyntaxException {
-            when(reclamacaoService.inserirReclamacao(any())).thenReturn(Reclamacao.builder().id("00a1").build());
+            when(reclamacaoService.inserirReclamacao(any())).thenReturn(ReclamacaoDTO.builder().id("00a1").build());
             ResponseEntity result = reclamacaoController.adicionarReclamacao(new Reclamacao(),UriComponentsBuilder.fromUri(new URI("")));
             verify(reclamacaoService, times(1)).inserirReclamacao(any());
       }
 
       @Test
       public void testAtualizarReclamacao(){
-            when(reclamacaoService.atualizarReclamacao(anyString(),any())).thenReturn(new Reclamacao());
+            when(reclamacaoService.atualizarReclamacao(anyString(),any())).thenReturn(new ReclamacaoDTO());
 
-            ResponseEntity<Reclamacao> result = reclamacaoController.atualizarReclamacao("1", new Reclamacao());
+            ResponseEntity<ReclamacaoDTO> result = reclamacaoController.atualizarReclamacao("1", new Reclamacao());
             verify(reclamacaoService, times(1)).atualizarReclamacao(anyString(),any());
-            Assert.assertEquals(ResponseEntity.ok(new Reclamacao()), result);
+            Assert.assertEquals(ResponseEntity.ok(new ReclamacaoDTO()), result);
       }
 
       @Test

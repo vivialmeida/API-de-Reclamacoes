@@ -6,9 +6,14 @@ import br.com.reclameaqui.gestorreclamacoes.respository.templates.LocalidadeRepo
 import br.com.reclameaqui.gestorreclamacoes.service.exception.NaoEncontradoException;
 import br.com.reclameaqui.gestorreclamacoes.service.interfaces.LocalidadeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.ignoreCase;
 
 
 @Service
@@ -19,7 +24,13 @@ public class LocalidadeServiceImpl implements LocalidadeService {
   private final LocalidadeRepositoryTemplate localidadeRepositoryTemplate;
 
   public Localidade adicionarOuAtualizarLocalidade(Localidade localidade){
-    return localidadeRepository.save(localidade);
+
+        Localidade localidadeExistente = recuperarLocalidadeCasoJaExista(localidade);
+        if (Objects.nonNull(localidadeExistente)){
+              return localidadeExistente;
+        }
+
+        return localidadeRepository.save(localidade);
   }
 
       @Override
@@ -31,6 +42,18 @@ public class LocalidadeServiceImpl implements LocalidadeService {
            return localidades;
 
 
+      }
+
+      private Localidade recuperarLocalidadeCasoJaExista(Localidade localidade){
+            ExampleMatcher modelMatcher = ExampleMatcher.matching()
+                    .withIgnorePaths("id")
+                    .withMatcher("pais", ignoreCase())
+                    .withMatcher("cidade", ignoreCase())
+                    .withMatcher("estado", ignoreCase());
+
+            Example<Localidade> example = Example.of(localidade,modelMatcher);
+            localidadeRepository.exists(example);
+            return localidadeRepository.findLocalidadeByPaisAndCidadeAndEstado(localidade.getPais(), localidade.getCidade(), localidade.getEstado());
 
       }
 }

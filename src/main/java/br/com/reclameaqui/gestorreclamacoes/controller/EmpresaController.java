@@ -1,6 +1,6 @@
 package br.com.reclameaqui.gestorreclamacoes.controller;
 
-import br.com.reclameaqui.gestorreclamacoes.model.Empresa;
+import br.com.reclameaqui.gestorreclamacoes.model.dto.EmpresaDTO;
 import br.com.reclameaqui.gestorreclamacoes.service.interfaces.EmpresaService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -31,9 +31,9 @@ public class EmpresaController {
           @ApiResponse(code = 500, message = "Erro interno"),
       })
       @GetMapping
-      public ResponseEntity<HashSet<Empresa>> recuperarEmpresas(){
+      public ResponseEntity<HashSet<EmpresaDTO>> recuperarEmpresas(){
 
-            HashSet<Empresa>  empresas = empresaService.recuperarEmpresas();
+            HashSet<EmpresaDTO>  empresas = empresaService.recuperarEmpresas();
             empresas.forEach(empresa -> empresa.add(linkTo(methodOn(EmpresaController.class).recuperarEmpresaPor(empresa.getFantasia())).withSelfRel()));
 
             return  ResponseEntity.ok().body(empresas);
@@ -47,8 +47,8 @@ public class EmpresaController {
           @ApiResponse(code = 500, message = "Erro interno"),
       })
       @GetMapping("/{nome}")
-      public ResponseEntity<HashSet<Empresa>> recuperarEmpresaPor(@PathVariable("nome") String nome){
-            HashSet<Empresa> empresas = empresaService.recuperarEmpresaPor(nome);
+      public ResponseEntity<HashSet<EmpresaDTO>> recuperarEmpresaPor(@PathVariable("nome") String nome){
+            HashSet<EmpresaDTO> empresas = empresaService.recuperarEmpresaPor(nome);
             return  ResponseEntity.ok().body(empresas);
       }
 

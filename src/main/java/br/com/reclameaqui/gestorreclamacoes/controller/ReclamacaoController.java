@@ -1,6 +1,7 @@
 package br.com.reclameaqui.gestorreclamacoes.controller;
 
 import br.com.reclameaqui.gestorreclamacoes.model.Reclamacao;
+import br.com.reclameaqui.gestorreclamacoes.model.dto.ReclamacaoDTO;
 import br.com.reclameaqui.gestorreclamacoes.service.interfaces.ReclamacaoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,10 +38,10 @@ public class ReclamacaoController {
       @ApiResponse(code = 500, message = "Erro interno"),
   })
   @GetMapping
-  public ResponseEntity<Page<Reclamacao>> recuperarReclamacoes(@RequestParam(value = "size", required = false, defaultValue = "100")Integer size,
-                                                                          @RequestParam(value = "page", required = false, defaultValue = "0")Integer page) {
+  public ResponseEntity<Page<ReclamacaoDTO>> recuperarReclamacoes(@RequestParam(value = "size", required = false, defaultValue = "100")Integer size,
+                                                                  @RequestParam(value = "page", required = false, defaultValue = "0")Integer page) {
 
-    Page<Reclamacao> pages = reclamacaoService.recuperarReclamacoes(page, size);
+    Page<ReclamacaoDTO> pages = reclamacaoService.recuperarReclamacoes(page, size);
     pages.getContent().forEach(reclamacao -> reclamacao.add(linkTo(methodOn(ReclamacaoController.class).recuperarReclamacaoPorId(reclamacao.getId())).withSelfRel()));
     return ResponseEntity.ok().body(pages);
   }
@@ -52,7 +53,7 @@ public class ReclamacaoController {
       @ApiResponse(code = 500, message = "Erro interno"),
   })
   @GetMapping("/data")
-  public ResponseEntity<Iterable<Reclamacao>> recuperarReclamacaoPorData(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+  public ResponseEntity<Iterable<ReclamacaoDTO>> recuperarReclamacaoPorData(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
                                                                          @RequestParam("dataInicio") LocalDate dataInicio,
                                                                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
                                                                          @RequestParam(value = "dataFim", required = false) LocalDate dataFim) {
@@ -66,8 +67,8 @@ public class ReclamacaoController {
       @ApiResponse(code = 500, message = "Erro interno"),
   })
   @GetMapping("/{id}")
-  public ResponseEntity<Reclamacao> recuperarReclamacaoPorId(@PathVariable("id") String id) {
-    Reclamacao reclamacao = reclamacaoService.recuperarReclamacaoPorId(id);
+  public ResponseEntity<ReclamacaoDTO> recuperarReclamacaoPorId(@PathVariable("id") String id) {
+    ReclamacaoDTO reclamacao = reclamacaoService.recuperarReclamacaoPorId(id);
     reclamacao.add(linkTo(methodOn(ReclamacaoController.class).recuperarReclamacoes(100, 0)).withRel("Listar todas as reclamacoes"));
 
     return ResponseEntity.ok().body(reclamacao);
@@ -81,8 +82,8 @@ public class ReclamacaoController {
       @ApiResponse(code = 500, message = "Erro interno"),
   })
   @PostMapping
-  public ResponseEntity<Reclamacao> adicionarReclamacao(@Valid @RequestBody Reclamacao reclamacao, UriComponentsBuilder uriBuilder) {
-    Reclamacao novaReclamacao = reclamacaoService.inserirReclamacao(reclamacao);
+  public ResponseEntity<ReclamacaoDTO> adicionarReclamacao(@Valid @RequestBody Reclamacao reclamacao, UriComponentsBuilder uriBuilder) {
+    ReclamacaoDTO novaReclamacao = reclamacaoService.inserirReclamacao(reclamacao);
     return ResponseEntity.created(URI.create(uriBuilder.build().getPath())).body(novaReclamacao);
   }
 
@@ -93,7 +94,7 @@ public class ReclamacaoController {
       @ApiResponse(code = 500, message = "Erro interno"),
   })
   @PutMapping("/{id}")
-  public ResponseEntity<Reclamacao> atualizarReclamacao(@PathVariable("id") String id,
+  public ResponseEntity<ReclamacaoDTO> atualizarReclamacao(@PathVariable("id") String id,
                                                         @RequestBody @Valid Reclamacao reclamacao) {
     return ResponseEntity.ok(reclamacaoService.atualizarReclamacao(id,reclamacao));
   }
@@ -117,7 +118,7 @@ public class ReclamacaoController {
       @ApiResponse(code = 500, message = "Erro interno"),
   })
   @GetMapping("/empresa")
-  public ResponseEntity<List<Reclamacao>> recuperarReclamacoesPorEmpresa(@RequestParam(value = "nome", required = false) String nome,
+  public ResponseEntity<List<ReclamacaoDTO>> recuperarReclamacoesPorEmpresa(@RequestParam(value = "nome", required = false) String nome,
                                                                          @RequestParam(value = "cnpj" , required = false) String cnpj) {
     return ResponseEntity.ok(reclamacaoService.recuperarReclamacaoPorEmpresa(nome, cnpj));
   }
@@ -129,7 +130,7 @@ public class ReclamacaoController {
       @ApiResponse(code = 500, message = "Erro interno"),
   })
   @GetMapping("/localidade")
-  public ResponseEntity<List<Reclamacao>> recuperarReclamacoesPorEmpresa(@RequestParam(value = "pais", required = false)  String pais,
+  public ResponseEntity<List<ReclamacaoDTO>> recuperarReclamacoesPorEmpresa(@RequestParam(value = "pais", required = false)  String pais,
                                                                          @RequestParam(value = "estado", required = false)  String estado,
                                                                          @RequestParam(value = "cidade", required = false) String cidade) {
     return ResponseEntity.ok(reclamacaoService.recuperarReclamacaoPorLocalidade(pais, estado, cidade));

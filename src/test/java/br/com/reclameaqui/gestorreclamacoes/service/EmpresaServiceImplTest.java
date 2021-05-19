@@ -1,6 +1,7 @@
 package br.com.reclameaqui.gestorreclamacoes.service;
 
 import br.com.reclameaqui.gestorreclamacoes.model.Empresa;
+import br.com.reclameaqui.gestorreclamacoes.model.dto.EmpresaDTO;
 import br.com.reclameaqui.gestorreclamacoes.respository.EmpresaRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -36,8 +37,8 @@ public class EmpresaServiceImplTest {
       @Test
       public void testRecuperarEmpresas(){
             when(empresaRepository.findAll()).thenReturn(Arrays.asList(new Empresa("id", "fantasia", "cnpj")));
-            HashSet<Empresa> result = empresaServiceImpl.recuperarEmpresas();
-            Assert.assertEquals(new HashSet<>(Arrays.asList(new Empresa("id", "fantasia", "cnpj"))), result);
+            HashSet<EmpresaDTO> result = empresaServiceImpl.recuperarEmpresas();
+            Assert.assertEquals(new HashSet<>(Arrays.asList(new EmpresaDTO("id", "fantasia", "cnpj"))), result);
             verify(empresaRepository).findAll();
 
       }
@@ -45,8 +46,8 @@ public class EmpresaServiceImplTest {
       @Test
       public void testRecuperarEmpresaPor() {
             when(empresaRepository.findEmpresaByFantasia(anyString())).thenReturn(Arrays.<Empresa>asList(new Empresa("id", "fantasia", "cnpj")));
-            HashSet<Empresa> result = empresaServiceImpl.recuperarEmpresaPor("nomeEmpresa");
-            Assert.assertEquals(new HashSet<>(Arrays.asList(new Empresa("id", "fantasia", "cnpj"))), result);
+            HashSet<EmpresaDTO> result = empresaServiceImpl.recuperarEmpresaPor("nomeEmpresa");
+            Assert.assertEquals(new HashSet<>(Arrays.asList(new EmpresaDTO("id", "fantasia", "cnpj"))), result);
             verify(empresaRepository).findEmpresaByFantasia(anyString());
             Assert.assertFalse(result.isEmpty());
 
