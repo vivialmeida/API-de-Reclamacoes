@@ -1,5 +1,8 @@
 # API de Gerenciamento de Reclamacoes
 
+API Restfull com Spring Framework e com banco de dados MongoDB, usando recurso do spring heteoas
+
+
 ### Recursos API
 1. Reclamação
 - [X] Cadastrar reclamação
