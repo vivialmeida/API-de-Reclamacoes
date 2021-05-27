@@ -1,4 +1,4 @@
-# Challenge-Backend-ReclameAQUI
+# API de Gerenciamento de Reclamacoes
 
 ### Recursos API
 1. Reclamação
@@ -28,7 +28,7 @@ Environment da API no Postman: https://github.com/vivialmeida/Challenge-Backend-
 
 Local: localhost:8080/
 
-Server: https://appreclame-aqui.herokuapp.com/ (Geralmente a primeira request ao servidor, demora aproximadamente 50s, após isso o retorno das demais requests possui um limite de tempo aceitaval)
+Server: https://appreclame-aqui.herokuapp.com/ 
 
 
 **Documentação da API:**
@@ -43,14 +43,10 @@ DEV
 
 **Instruções:**
 
-Para executar o programa localmente, caso queira apontar para produção:
-1. Substituir a variável de ambinete ${MONGODB_URI} no arquivo application-prod por: 
-    - mongodb+srv://sys:r2NfczqP8TFzAhSs@clusterdev.atpqg.mongodb.net/reclamacoes?retryWrites=true&w=majority
+Para executar o programa localmente:
+1. Adicionar profile "dev" ou "prod"
 2. Selecionar a classe: GestorDeReclamacoesApplication.java e executar.
-
-Para executar o programa localmente, caso queira apontar para desenvolvimento:
-1. Adicionar profile "dev"
-2. Selecionar a classe: GestorDeReclamacoesApplication.java e executar.
+3. Selecionar a classe: GestorDeReclamacoesApplication.java e executar.
 
 
     
